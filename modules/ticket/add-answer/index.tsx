@@ -31,9 +31,9 @@ export default function AddAnswerForm({ params }: TicketPageProps) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className=" mt-20  flex justify-center"
+      className=" w-full mt-20  flex justify-center"
     >
-      <div className=" w-1/2 bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 p-6">
+      <div className=" w-full bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 p-6">
         <div className=" grid-cols-1  mt-4 sm:grid-cols-2">
           <div>
             <label

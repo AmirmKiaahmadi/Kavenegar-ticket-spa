@@ -12,12 +12,12 @@ export async function Tickets() {
         <p>loading...</p>
       ) : data && data.length > 0 ? (
         <div className=" md:mx-20 my-10">
-          <div className="max-w-full mx-auto">
+          <div className="w-full mx-auto">
             <div className="flex flex-col">
               <div className="overflow-x-auto shadow-md sm:rounded-lg">
-                <div className="inline-block min-w-full align-middle">
+                <div className="inline-block w-full align-middle">
                   <div className="overflow-hidden ">
-                    <table className="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700">
+                    <table className="w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700">
                       <thead className="bg-gray-100 dark:bg-gray-700">
                         <tr>
                           <th

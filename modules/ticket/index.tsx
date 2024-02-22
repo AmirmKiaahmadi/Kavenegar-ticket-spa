@@ -8,11 +8,11 @@ export default function Ticket({ params }: TicketPageProps) {
   return (
     <div>
       {data && (
-        <div>
+        <div className="">
           <div className="container mt-4 mx-auto">
             <div className=" w-full">
               <div className="card m-2  border border-gray-400 rounded-lg shadow-md border-opacity-0">
-                <div className="m-3">
+                <div className="m-3 p-4">
                   <h2 className="text-lg mb-2">
                     {data.title}
                     <span className="text-sm text-teal-800 font-mono bg-teal-100 inline rounded-full px-2 align-top float-right animate-pulse">
