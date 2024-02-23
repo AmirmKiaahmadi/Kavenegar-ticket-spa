@@ -1,4 +1,3 @@
-"use client";
 import TableSkeleton from "@/components/skeletons/table";
 import AddTicketForm from "@/modules/create-ticket";
 import React, { Suspense } from "react";

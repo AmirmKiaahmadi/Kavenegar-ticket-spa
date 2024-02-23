@@ -31,7 +31,7 @@ export default function HomeSection() {
       </small>
       <p className="mt-8 md:mt-12">
         <Link
-          href="/tasks"
+          href="/tickets"
           type="button"
           className=" py-4 px-12 bg-teal-500 hover:bg-teal-600 rounded text-white"
         >

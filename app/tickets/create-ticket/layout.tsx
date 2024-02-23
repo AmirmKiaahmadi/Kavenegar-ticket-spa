@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "ticket",
-  description: "ticket page",
+  title: "create ticket",
+  description: "create ticket page",
 };
 
 export default function RootLayout({
@@ -10,5 +10,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <div className=" mx-6">{children}</div>;
+  return <div className="">{children}</div>;
 }

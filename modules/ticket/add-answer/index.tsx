@@ -9,6 +9,10 @@ import useGetTask from "../hooks/useGetTask";
 import useSetAnswer from "../hooks/useSetAnswer";
 import useCloseTicket from "../hooks/useSetStatusTicket";
 import { IMutatePayload } from "./interface";
+import TextareaInput from "@/components/RHF-fields/textarea-input";
+import AcceptButton from "@/components/buttons/accepted-button";
+import RejectButton from "@/components/buttons/rejected-button";
+import { toast } from "react-toastify";
 
 export default function AddAnswerForm({ params }: TicketPageProps) {
   const { data, refetch } = useGetTask(params.ticket_id);
@@ -20,13 +24,17 @@ export default function AddAnswerForm({ params }: TicketPageProps) {
     formState: { errors },
   } = useForm<TicketFormValues>();
   const onSubmit = (payload: TicketFormValues) => {
-    const answers: Array<string> | undefined = data?.answers;
-    answers?.push(payload.answer);
-    const mutatePayload: IMutatePayload = {
-      id: params.ticket_id,
-      answers: answers,
-    };
-    mutate(mutatePayload);
+    if (data?.status !== "closed") {
+      const answers: Array<string> | undefined = data?.answers;
+      answers?.push(payload.answer);
+      const mutatePayload: IMutatePayload = {
+        id: params.ticket_id,
+        answers: answers,
+      };
+      mutate(mutatePayload);
+    } else {
+      toast.error("Ticket also closed!");
+    }
   };
   return (
     <form
@@ -35,34 +43,16 @@ export default function AddAnswerForm({ params }: TicketPageProps) {
     >
       <div className=" w-full bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 p-6">
         <div className=" grid-cols-1  mt-4 sm:grid-cols-2">
-          <div>
-            <label
-              className="text-white dark:text-gray-200 my-2"
-              htmlFor="description"
-            >
-              Answer To This Tickets:
-            </label>
-            <textarea
-              id="description"
-              {...register("answer", { required: true })}
-              className="block w-full px-4 py-2 my-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-            ></textarea>
-            {errors.answer && (
-              <p className="text-red-500">answer is required</p>
-            )}
-          </div>
+          <TextareaInput
+            name="answer"
+            label="Answer"
+            register={register}
+            errors={errors}
+          />
         </div>
         <div className="flex justify-end mt-6">
-          <button className="px-6 mx-2  w-full leading-5 text-white transition-colors duration-200 transform py-4  bg-teal-500 hover:bg-teal-600 rounded">
-            add answers
-          </button>
-          <button
-            onClick={() => closeMutate()}
-            type="button"
-            className="px-6 mx-2  w-full leading-5 text-white transition-colors duration-200 transform py-4  bg-red-600 hover:bg-red-400 rounded"
-          >
-            Close Ticket
-          </button>
+          <AcceptButton name="Send" />
+          <RejectButton name="Close Ticket" mutate={closeMutate} />
         </div>
       </div>
     </form>

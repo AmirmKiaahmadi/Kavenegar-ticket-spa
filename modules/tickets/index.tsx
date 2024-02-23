@@ -2,8 +2,9 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import useGetTickets from "./hooks/useGetTickets";
+import moment from "moment";
 
-export async function Tickets() {
+export function Tickets() {
   const { data, isLoading } = useGetTickets();
   const router = useRouter();
   return (
@@ -54,30 +55,32 @@ export async function Tickets() {
                       </thead>
                       <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
                         {data?.map((item) => (
-                          <>
-                            <tr
-                              className="hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                              onClick={() => router.push(`/tickets/${item.id}`)}
-                            >
-                              <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {item.id}
-                              </td>
-                              <td className="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white">
-                                {item.title}
-                              </td>
-                              <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white inline-block w-[200px]">
-                                <span className="line-clamp-1">
-                                  {item.message}
-                                </span>
-                              </td>
-                              <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {item.recieved}
-                              </td>
-                              <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {item.status}
-                              </td>
-                            </tr>
-                          </>
+                          <tr
+                            key={item.id}
+                            className="hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+                            onClick={() => router.push(`/tickets/${item.id}`)}
+                          >
+                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                              {item.id}
+                            </td>
+                            <td className="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white">
+                              {item.title}
+                            </td>
+                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white inline-block w-[200px]">
+                              <span className="line-clamp-1">
+                                {item.message}
+                              </span>
+                            </td>
+                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                              {item.recieved &&
+                                moment(item.recieved, "YYYY-MM-DD").format(
+                                  "YYYY-MM-DD "
+                                )}
+                            </td>
+                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                              {item.status}
+                            </td>
+                          </tr>
                         ))}
                       </tbody>
                     </table>
