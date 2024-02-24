@@ -2,9 +2,13 @@
 import React from "react";
 import useGetTask from "./hooks/useGetTask";
 import { TicketPageProps } from "@/app/tickets/[ticket_id]/interface";
+import NotFoundPage from "@/components/not-found";
+import AddAnswerForm from "./add-answer";
 
 export default function Ticket({ params }: TicketPageProps) {
-  const { data } = useGetTask(params.ticket_id);
+  const { data, error, isLoading } = useGetTask(params.ticket_id);
+  if (isLoading) return <div>Loading...</div>;
+  if (error || !data) return <NotFoundPage />;
   return (
     <div>
       {data && (
@@ -37,6 +41,7 @@ export default function Ticket({ params }: TicketPageProps) {
           )}
         </div>
       )}
+      <AddAnswerForm params={params} />
     </div>
   );
 }

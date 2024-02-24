@@ -31,7 +31,7 @@ export const CustomTable = <T extends object>({
           <tr
             key={row.id}
             className="hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-            onClick={() => router.push(`/tickets/${row.id}`)}
+            onClick={() => router.push(`/tickets/${Number(row.id) + 1}`)}
           >
             {row.getVisibleCells().map((cell) => (
               <TableBody key={cell.id} cell={cell} />
