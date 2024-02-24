@@ -1,12 +1,12 @@
 "use client";
 import React from "react";
-import { useRouter } from "next/navigation";
 import useGetTickets from "./hooks/useGetTickets";
-import moment from "moment";
+import { CustomTable } from "@/components/table";
+import useSetTableCols from "./hooks/useSetTableCols";
 
 export function Tickets() {
   const { data, isLoading } = useGetTickets();
-  const router = useRouter();
+  const { cols } = useSetTableCols();
   return (
     <>
       {isLoading ? (
@@ -18,72 +18,7 @@ export function Tickets() {
               <div className="overflow-x-auto shadow-md sm:rounded-lg">
                 <div className="inline-block w-full align-middle">
                   <div className="overflow-hidden ">
-                    <table className="w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700">
-                      <thead className="bg-gray-100 dark:bg-gray-700">
-                        <tr>
-                          <th
-                            scope="col"
-                            className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"
-                          >
-                            ID
-                          </th>
-                          <th
-                            scope="col"
-                            className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"
-                          >
-                            TITLE
-                          </th>
-                          <th
-                            scope="col"
-                            className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"
-                          >
-                            MESSAGE
-                          </th>
-                          <th
-                            scope="col"
-                            className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"
-                          >
-                            DATE
-                          </th>
-                          <th
-                            scope="col"
-                            className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"
-                          >
-                            STATUS
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                        {data?.map((item) => (
-                          <tr
-                            key={item.id}
-                            className="hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                            onClick={() => router.push(`/tickets/${item.id}`)}
-                          >
-                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                              {item.id}
-                            </td>
-                            <td className="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white">
-                              {item.title}
-                            </td>
-                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white inline-block w-[200px]">
-                              <span className="line-clamp-1">
-                                {item.message}
-                              </span>
-                            </td>
-                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                              {item.recieved &&
-                                moment(item.recieved, "YYYY-MM-DD").format(
-                                  "YYYY-MM-DD "
-                                )}
-                            </td>
-                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                              {item.status}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                    <CustomTable data={data} columns={cols} />
                   </div>
                 </div>
               </div>
