@@ -10,9 +10,8 @@ import useSetAnswer from "../hooks/useSetAnswer";
 import useCloseTicket from "../hooks/useSetStatusTicket";
 import { IMutatePayload } from "./interface";
 import TextareaInput from "@/components/RHF-fields/textarea-input";
-import AcceptButton from "@/components/buttons/accepted-button";
-import RejectButton from "@/components/buttons/rejected-button";
 import { toast } from "react-toastify";
+import { Button } from "@/components/buttons/submit-button";
 
 export default function AddAnswerForm({ params }: TicketPageProps) {
   const { data, refetch } = useGetTask(params.ticket_id);
@@ -51,8 +50,16 @@ export default function AddAnswerForm({ params }: TicketPageProps) {
           />
         </div>
         <div className="flex justify-end mt-6">
-          <AcceptButton name="Send" />
-          <RejectButton name="Close Ticket" mutate={closeMutate} />
+          <Button
+            title="Send"
+            className="px-6  w-full leading-5 text-white transition-colors duration-200 transform py-4  bg-teal-500 hover:bg-teal-600 rounded"
+          />
+          <Button
+            title="Close Ticket"
+            onClick={() => closeMutate()}
+            type="button"
+            className="px-6 mx-2  w-full leading-5 text-white transition-colors duration-200 transform py-4  bg-red-600 hover:bg-red-400 rounded"
+          />
         </div>
       </div>
     </form>

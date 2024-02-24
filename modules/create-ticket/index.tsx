@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { TicketFormValues } from "@/app/tickets/create-ticket/interface";
 import TextInput from "@/components/RHF-fields/text-input";
 import TextareaInput from "@/components/RHF-fields/textarea-input";
-import AcceptButton from "@/components/buttons/accepted-button";
+import { Button } from "@/components/buttons/submit-button";
 
 export default function AddTicketForm() {
   const { refetch } = useGetTickets();
@@ -39,7 +39,10 @@ export default function AddTicketForm() {
         />
       </div>
       <div className="flex justify-end mt-6">
-        <AcceptButton name="Create" />
+        <Button
+          title="Create"
+          className="px-6  w-full leading-5 text-white transition-colors duration-200 transform py-4  bg-teal-500 hover:bg-teal-600 rounded"
+        />
       </div>
     </form>
   );
